@@ -1,4 +1,5 @@
 import fs from "fs";
+import { max } from "itertools";
 
 class Round {
   constructor(
@@ -70,6 +71,18 @@ const part1 = (games: Game[]) => {
     .reduce((acc, game) => acc + game.id, 0);
 };
 
+const part2 = (games: Game[]) => {
+  return games
+    .map((game) => {
+      const red = max(game.rounds.map((round) => round.red))!;
+      const green = max(game.rounds.map((round) => round.green))!;
+      const blue = max(game.rounds.map((round) => round.blue))!;
+
+      return red * green * blue;
+    })
+    .reduce((acc, value) => acc + value, 0);
+};
+
 export default function main(inputPath: string) {
   const games = fs
     .readFileSync(inputPath, "utf-8")
@@ -78,4 +91,5 @@ export default function main(inputPath: string) {
     .map((line) => Game.parse(line.trim()));
 
   console.log(`Part 1: ${part1(games)}`);
+  console.log(`Part 2: ${part2(games)}`);
 }
