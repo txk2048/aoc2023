@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # Advent of Code input files
-**/input.txt
+inputs/
